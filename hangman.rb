@@ -36,4 +36,10 @@ class Hangman
       @guessed_letters.include?(guess)
     end
 
+    def game_over?
+      word == @spaces || @tries == 0
+      #   true
+      # end
+    end
+
 end

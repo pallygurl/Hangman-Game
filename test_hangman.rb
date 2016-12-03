@@ -43,17 +43,25 @@ class TestHangman < Minitest::Test
 		assert_equal(" ee ", game.spaces)
 	end
 
-	def test_update_spaces_2
+	def test_update_spaces_3
 		game = Hangman.new("beer")
 		game.update_spaces("r")
 		assert_equal("   r", game.spaces)
 	end
 
-	def test_for_number_of_allowed_guesses
-		game = Hangman.new("beer")
-		game.update_tries
-		assert_equal(5, game.tries)
-	end
+	# def test_number_of_tries_decreases_with_incorrect_guess
+	# 	game = Hangman.new("beer")
+	# 	guess = "j"
+	# 	game.tries = 4
+	# 	assert_equal(3, game.update_tries)
+	# end
+	#
+	# def test_number_of_tries_does_not_decrease_with_correct_guess
+	# 	game = Hangman.new("beer")
+	# 	guess = "b"
+	# 	game.tries = 5
+	# 	assert_equal(5, game.update_tries)
+	# end
 
 	def test_for_letter_already_been_guessed_is_true
 		game = Hangman.new("beer")
@@ -69,13 +77,28 @@ class TestHangman < Minitest::Test
 		assert_equal(false, game.already_guessed?(guess))
 	end
 
+	def test_for_game_over
+		game = Hangman.new("beer")
+		game.tries = 0
+		assert_equal(true, game.game_over?)
+	end
 
+	def test_for_game_over
+		game = Hangman.new("beer")
+		game.tries = 1
+		assert_equal(false, game.game_over?)
+	end
 
+	def test_for_game_over
+		game = Hangman.new("beer")
+		game.spaces = "bee "
+		assert_equal(false, game.game_over?)
+	end
 
-
-
-
-
-
+	def test_for_game_over
+		game = Hangman.new("beer")
+		game.spaces = "beer"
+		assert_equal(true, game.game_over?)
+	end
 
 end
