@@ -9,17 +9,17 @@ class Hangman
          @tries = 6
     end
 
-    # def guess(letter)
-    #   letter.upcase!
-    #   unless @guessed_letters.include?(letter)
-    #     @guessed_letters << letter
-    #   end
-    #   if word.include?(letter)
-    #     @correct_guesses << letter
-    #   else
-    #     @tries -=1
-    #   end
-    # end
+    def guess(letter)
+      letter.upcase!
+      unless @guessed_letters.include?(letter)
+        @guessed_letters << letter
+      end
+      if word.include?(letter)
+        @correct_guesses << letter
+      else
+        @tries -=1
+      end
+    end
 
     def word_include?(letter)  #this method determines if the guessed letter is in the word
       word.include?(letter)
@@ -27,6 +27,7 @@ class Hangman
 
     def make_guess(letter) #this method determines that letters go into the guessed letters array
       @guessed_letters << letter
+      puts "#{guessed_letters}"
     end
 
     def update_correct_guesses(letter) #this method determines that letters that are part of the word are correctly updated
@@ -35,6 +36,7 @@ class Hangman
         if word[i] == letter #looks at the index value of the word & if the guessed letter is in the right spot
           @correct_guesses [i] = letter #makes the space at that index value equal to the guessed letter
         end
+        # puts"\n"
         i += 1 #increments the counter
       end
 
@@ -52,8 +54,11 @@ class Hangman
       @guessed_letters.include?(letter)
     end
 
+
     def game_over?
       word == @correct_guesses || @tries == 0 #spaces holds the correct letters that form the word. when equal to the word, the game is over
     end
+
+
 
 end
