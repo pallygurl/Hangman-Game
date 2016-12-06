@@ -101,7 +101,18 @@ class TestHangman < Minitest::Test
 		assert_equal(true, game.game_over?)
 	end
 
-	# def test_for_winner
-	# 	game = Hangman.new("beer")
+	def test_for_winner
+		game = Hangman.new("beer")
+		game.update_correct_guesses("b")
+		game.update_correct_guesses("e")
+		game.update_correct_guesses("e")
+		game.update_correct_guesses("r")
+		assert_equal(true, game.winner)
+	end
 
+	def test_for_loser
+		game = Hangman.new("beer")
+		game.tries = 0
+		assert_equal(true,game.loser)
+	end
 end

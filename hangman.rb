@@ -59,6 +59,12 @@ class Hangman
       word == @correct_guesses || @tries == 0 #spaces holds the correct letters that form the word. when equal to the word, the game is over
     end
 
+    def winner
+      word == @correct_guesses && @tries > 0 #spaces holds the correct letters that form the word. when equal to the word, the game is over
+    end
 
-
+    def loser
+      @tries ==0
+    end
+      
 end
