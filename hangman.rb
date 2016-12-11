@@ -1,86 +1,71 @@
 class Hangman
-    attr_reader :word
-    attr_accessor :correct_guesses, :guessed_letters, :tries
+  attr_reader :word
+  attr_accessor :correct_guesses, :guessed_letters, :tries
 
-    def initialize(word)
-         @word = File.readlines("dictionary.txt").sample
-         @correct_guesses = "-" * word.length
-         @guessed_letters = []
-         @tries = 6
-    end
+  def initialize(word)
+    @word = word
+    # @correct_guesses = " " * word.length
+    @guessed_letters = []
+    @tries = 6
+    @correct_guesses = get_word
+  end
 
-    def word_include?(letter)  #this method determines if the guessed letter is in the word
-      word.include?(letter)
-    end
 
-    def make_guess(letter) #this method determines that letters go into the guessed letters array
-      @guessed_letters << letter
-    end
+  def word_size # gets the number of letters in the word
+    word.length
+  end
 
-    def update_correct_guesses(letter) #this method determines that letters that are part of the word are correctly updated
-      i = 0 #sets a counter to 0
-      word.length.times do #iterates through the word
-        if word[i] == letter #looks at the index value of the word & if the guessed letter is in the right spot
-          @correct_guesses [i] = letter #makes the space at that index value equal to the guessed letter
-        end
-        i += 1 #increments the counter
+  def get_word # creates an array of blank spaces equal to the word length
+    Array.new(word_size, " ")
+  end
+
+  def word_include?(guess) # this method determines if the guessed letter is in the word
+    word.include?(guess)
+  end
+
+
+  def update_correct_guesses(guess) # this method determines that letters that are part of the word are correctly updated
+    i = 0 # sets a counter to 0
+    word.length.times do # iterates through the word
+      if word[i] == guess # looks at the index value of the word & if the guessed letter is in the right spot
+        @correct_guesses [i] = guess # makes the space at that index value equal to the guessed letter
       end
-      correct_guesses
+      i += 1 # increments the counter
     end
+ 
+ end
 
-    def update_tries(letter) #this method decrements the chances by 1
-      if word.include?(letter)
-      @tries
-      else
-      @tries -= 1
-      end
-      @tries
+  def update_tries(guess) # this method decrements the chances by 1
+    if word.include?(guess)
+    @tries
+    else
+    @tries -= 1
     end
+  end
 
-    def already_guessed?(letter) #this method looks to see if guessed letters are already in the guessed letters array
-      @guessed_letters.include?(letter)
+  def make_guess(guess) # this method determines that letters go into the guessed letters array
+    @guessed_letters << guess
+    if word_include?(guess)
+      update_correct_guesses(guess)
+    else
+      update_tries(guess)
     end
+  end
 
-    def input_word(letter)
-       gets.chomp
-    end
+  def already_guessed?(guess) # this method looks to see if guessed letters are already in the guessed letters array
+    @guessed_letters.include?(guess)
+  end
 
-    def game_over?
-      word == @correct_guesses || @tries == 0 #spaces holds the correct letters that form the word. when equal to the word, the game is over
-    end
+  def game_over?
+    word == @correct_guesses || @tries == 0 # spaces holds the correct letters that form the word. when equal to the word, the game is over
+  end
 
-    def winner
-      word == @correct_guesses #spaces holds the correct letters that form the word. when equal to the word, the game is over
-    end
+  def winner?
+    word == @correct_guesses # spaces holds the correct letters that form the word. when equal to the word, the game is over
+  end
 
-    def loser
-      @tries == 0
-    end
-
-    def display
-      @correct_guesses.scan(/_|\w/).join(' ')
-    end
-
-    def show_guessed_letters
-        @guessed_letters.sort.join(", ")
-    end
-
-    def word_to_guess
-    choose_word = word.delete("\n")
-    end
-
-    def play_game
-      @correct_guesses
-      word_to_guess
-      until game_over?
-        letter = input_word(letter)
-        make_guess(letter)
-        update_tries
-          if update_tries != 0 && word_include?(letter)
-            update_correct_guesses(letter)
-          end
-      end
-    end
-
+  def loser?
+    @tries.zero?
+  end
 
 end

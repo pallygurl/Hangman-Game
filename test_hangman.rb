@@ -10,7 +10,7 @@ class TestHangman < Minitest::Test
 
 	def test_number_of_spaces
 		game = Hangman.new("beer")
-		assert_equal("    ", game.correct_guesses)
+		assert_equal([" ", " ", " ", " "], game.correct_guesses)
 	end
 
 	def test_if_guessed_letter_is_in_word
@@ -34,19 +34,19 @@ class TestHangman < Minitest::Test
 	def test_update_spaces
 		game = Hangman.new("beer")
 		game.update_correct_guesses("b")
-		assert_equal("b   ", game.correct_guesses)
+		assert_equal(["b", " ", " ", " "], game.correct_guesses)
 	end
 
 	def test_update_spaces_2
 		game = Hangman.new("beer")
 		game.update_correct_guesses("e")
-		assert_equal(" ee ", game.correct_guesses)
+		assert_equal([" ", "e", "e", " "], game.correct_guesses)
 	end
 
 	def test_update_spaces_3
 		game = Hangman.new("beer")
 		game.update_correct_guesses("r")
-		assert_equal("   r", game.correct_guesses)
+		assert_equal([" ", " ", " ", "r"], game.correct_guesses)
 	end
 
 	def test_number_of_tries_decreases_with_incorrect_guess
@@ -107,12 +107,13 @@ class TestHangman < Minitest::Test
 		game.update_correct_guesses("e")
 		game.update_correct_guesses("e")
 		game.update_correct_guesses("r")
-		assert_equal(true, game.winner)
+		assert_equal(true, game.winner?)
 	end
 
 	def test_for_loser
 		game = Hangman.new("beer")
 		game.tries = 0
-		assert_equal(true,game.loser)
+		assert_equal(true, game.loser?)
 	end
+
 end
