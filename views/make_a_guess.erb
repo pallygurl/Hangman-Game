@@ -1,0 +1,18 @@
+You have <%= @tries %> chances to correctly guess the word and save Bob's life.
+<br>
+
+What letter do you want to guess? 
+<br>
+<h1><%=  %></h1>
+<br>
+<br>
+Guessed letters so far: <%= guessed_letters %>
+
+<br>
+<br>
+
+<form method="post" action="/guess">
+	<input type="text" name="guess" maxlength="1" required autofocus placeholder= "Letter">
+	<input type="submit">
+
+	<%#, locals: { status: status, tries: tries, guessed_letters: guessed_letters }%>

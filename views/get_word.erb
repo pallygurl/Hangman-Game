@@ -1,14 +1,6 @@
-<p>OK then, <%=player_name%>, let's do this!</p>
-
-<!-- <form action="play" method="post">
-	    <input type="submit">
-	</form> -->
-<br>
-<br>
-<br>
 <br><p>Enter your word - minimum 3 letters - below:
 <br>
-<form method="post" action="game_word">
-	<input type="password" name="game_word" minimum = "3" autofocus required>
+<form method="post" action="/word">
+	<input type="password" name="word" minlength = "3" autofocus required>
 	<input type="submit">
 </form>

@@ -63,20 +63,6 @@ class TestHangman < Minitest::Test
 		assert_equal(5, game.update_tries(letter))
 	end
 
-	def test_for_letter_already_been_guessed_is_true
-		game = Hangman.new("beer")
-		letter = "b"
-		game.guessed_letters = ["b"]
-		assert_equal(true, game.already_guessed?(letter))
-	end
-
-	def test_for_letter_already_been_guessed_is_false
-		game = Hangman.new("beer")
-		letter = "b"
-		game.guessed_letters = ["q", "h", "e"]
-		assert_equal(false, game.already_guessed?(letter))
-	end
-
 	def test_for_game_over
 		game = Hangman.new("beer")
 		game.tries = 0
@@ -103,10 +89,11 @@ class TestHangman < Minitest::Test
 
 	def test_for_winner
 		game = Hangman.new("beer")
-		game.update_correct_guesses("b")
-		game.update_correct_guesses("e")
-		game.update_correct_guesses("e")
-		game.update_correct_guesses("r")
+		game.correct_guesses["b","e","e","r"]
+		# game.update_correct_guesses("b")
+		# game.update_correct_guesses("e")
+		# game.update_correct_guesses("e")
+		# game.update_correct_guesses("r")
 		assert_equal(true, game.winner?)
 	end
 
